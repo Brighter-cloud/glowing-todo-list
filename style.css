@@ -1,0 +1,52 @@
+body {
+    background-color: #050505;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+#counter-container {
+    height: 150px; /* Prevents layout jump when scaling */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#counter-display {
+    font-size: 5rem;
+    font-weight: bold;
+    transition: transform 0.2s ease-in-out, text-shadow 0.3s ease;
+    text-shadow: 0 0 10px #ff4500;
+    color: #ff8c00;
+}
+
+.fire-text {
+    transition: 0.5s all ease;
+    text-shadow: 0 0 15px #ff4500;
+    color: #ff4500;
+    margin-bottom: 20px;
+}
+
+.gold-glow {
+    color: #ffd700 !important;
+    text-shadow: 0 0 20px #ffd700, 0 0 40px #ffcc00 !important;
+}
+
+.button-group button {
+    background: transparent;
+    border: 2px solid #ff4500;
+    color: white;
+    padding: 12px 20px;
+    margin: 10px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:active {
+    background: #ff4500;
+}
