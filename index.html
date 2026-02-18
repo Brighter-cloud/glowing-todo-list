@@ -3,44 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fire Glow Counter</title>
+    <title>To-Do List</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
+<body class="dark-mode">
+    <button id="theme-toggle">🌓 Toggle Mode</button>
+    
     <div class="container">
-        <h1 id="main-title" class="fire-text">Fire Glow</h1>
-        <div id="counter-container">
-            <div id="counter-display">0</div>
+        <div class="logo-container">
+            <h1 class="logo-header">Simple To-Do List</h1>
         </div>
         
-        <div class="button-group">
-            <button id="decrement-btn">Decrease</button>
-            <button id="reset-btn">Reset</button>
-            <button id="increment-btn">Increase</button>
+        <div class="water-flow-wrapper">
+            <div class="input-group">
+                <input type="text" id="task-input" placeholder="Add a new task...">
+                <button id="add-button">Add</button>
+            </div>
         </div>
+
+        <ul id="task-list"></ul>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            databaseURL: "YOUR_DATABASE_URL",
-            projectId: "YOUR_PROJECT_ID",
-            appId: "YOUR_APP_ID"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        // Exporting to window so main.js can use them
-        window.database = database;
-        window.dbRef = ref;
-        window.dbSet = set;
-        window.dbOnValue = onValue;
-    </script>
     <script src="main.js"></script>
 </body>
 </html>

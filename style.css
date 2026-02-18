@@ -1,52 +1,165 @@
+:root {
+    --card-bg: #ffffff;
+    --text-main: #000;
+}
+
+body.dark-mode {
+    --card-bg: #0f0f0f;
+    --text-main: #fff;
+}
+
 body {
-    background-color: #050505;
-    color: white;
+    /* Animated Gradient Background */
+    background: linear-gradient(-45deg, #ffcc00, #ff8800, #ffee00, #ffbb00);
+    background-size: 400% 400%;
+    animation: backgroundShift 15s ease infinite;
+    
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
-    height: 100vh;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    transition: background 0.5s ease;
+}
+
+/* Background Animation */
+@keyframes backgroundShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Change gradient colors for Dark Mode */
+body.dark-mode {
+    background: linear-gradient(-45deg, #121212, #2a2a2a, #1a1a1a, #0a0a0a);
+    background-size: 400% 400%;
+}
+
+#theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 50px;
+    border: none;
+    background: var(--card-bg);
+    color: var(--text-main);
+    font-weight: bold;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 100;
+}
+
+.container {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    width: 90%;
+    max-width: 500px;
+    transition: background 0.3s ease;
+}
+
+/* --- LOGO & BRANCHES --- */
+.logo-container { text-align: center; margin-bottom: 40px; }
+.logo-header {
+    font-size: 2.4rem;
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(90deg, #ff0000, #00ff00, #00d4ff, #ff0000);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: rainbow-flow 3s linear infinite;
+}
+
+.logo-header::before, .logo-header::after {
+    content: '◈';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    -webkit-text-fill-color: #00ff00;
+    filter: drop-shadow(0 0 10px #00ff00);
+}
+.logo-header::before { left: -45px; transform: translateY(-50%) rotate(-45deg); }
+.logo-header::after { right: -45px; transform: translateY(-50%) rotate(45deg); }
+
+@keyframes rainbow-flow { to { background-position: 200% center; } }
+
+/* --- WATER FLOW INPUT --- */
+.water-flow-wrapper {
+    position: relative;
+    padding: 3px;
+    background: linear-gradient(90deg, #00d4ff, #00ff88, #7000ff, #00d4ff);
+    background-size: 200% auto;
+    border-radius: 12px;
+    animation: water-flow 4s linear infinite;
+    margin-bottom: 25px;
+}
+
+@keyframes water-flow { to { background-position: 200% center; } }
+
+.input-group {
+    display: flex;
+    background: var(--card-bg);
+    border-radius: 10px;
     overflow: hidden;
 }
 
-#counter-container {
-    height: 150px; /* Prevents layout jump when scaling */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#counter-display {
-    font-size: 5rem;
-    font-weight: bold;
-    transition: transform 0.2s ease-in-out, text-shadow 0.3s ease;
-    text-shadow: 0 0 10px #ff4500;
-    color: #ff8c00;
-}
-
-.fire-text {
-    transition: 0.5s all ease;
-    text-shadow: 0 0 15px #ff4500;
-    color: #ff4500;
-    margin-bottom: 20px;
-}
-
-.gold-glow {
-    color: #ffd700 !important;
-    text-shadow: 0 0 20px #ffd700, 0 0 40px #ffcc00 !important;
-}
-
-.button-group button {
+#task-input {
+    flex: 1;
+    padding: 15px;
+    border: none;
     background: transparent;
-    border: 2px solid #ff4500;
-    color: white;
-    padding: 12px 20px;
-    margin: 10px;
-    border-radius: 8px;
-    font-weight: bold;
+    color: var(--text-main);
+    font-weight: 800; /* Bold text */
+    outline: none;
+}
+
+#add-button {
+    padding: 0 20px;
+    border: none;
+    background: #00ff88;
+    color: #000;
+    font-weight: 900;
     cursor: pointer;
 }
 
-button:active {
-    background: #ff4500;
+/* --- GLOWING TASKS --- */
+li {
+    list-style: none;
+    background: rgba(255,255,255,0.05);
+    margin: 15px 0;
+    padding: 15px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 2px solid;
+    animation: pulse-glow 2s infinite alternate;
 }
+
+@keyframes pulse-glow {
+    from { box-shadow: 0 0 5px var(--glow); border-color: var(--glow); }
+    to { box-shadow: 0 0 18px var(--glow); border-color: var(--glow); }
+}
+
+.color-1 { --glow: #ff007b; color: #ff007b; }
+.color-2 { --glow: #00d4ff; color: #00d4ff; }
+.color-3 { --glow: #ccff00; color: #ccff00; }
+.color-4 { --glow: #ffae00; color: #ffae00; }
+.color-5 { --glow: #a100ff; color: #a100ff; }
+
+.delete-btn {
+    background: none;
+    border: 1px solid #ff4d4d;
+    color: #ff4d4d;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.delete-btn:hover { background: #ff4d4d; color: #fff; }

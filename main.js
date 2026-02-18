@@ -1,79 +1,58 @@
-let count = 0;
-const display = document.getElementById('counter-display');
-const title = document.getElementById('main-title');
+// Theme Toggle
+const themeToggle = document.getElementById('theme-toggle');
+themeToggle.addEventListener('click', () => {
+    document.body.classList.toggle('dark-mode');
+});
 
-// 1. PERSISTENCE: Load from Firebase on start
-if (window.dbOnValue) {
-    const starCountRef = window.dbRef(window.database, 'stats/counter');
-    window.dbOnValue(starCountRef, (snapshot) => {
-        const data = snapshot.val();
-        if (data !== null) {
-            count = data;
-            updateDisplay();
-        }
+// Selectors
+const taskInput = document.getElementById('task-input');
+const addButton = document.getElementById('add-button');
+const taskList = document.getElementById('task-list');
+
+// Data
+let startingTasks = [
+    "Learn HTML Semantics", "Master CSS Flexbox", "Understand JS Variables",
+    "Connect Firebase Database", "Setup GitHub Pages", "Create Responsive Design",
+    "Debug JavaScript Console", "Optimize Image Sizes", "Write Clean Code",
+    "Build Portfolio Project", "Learn Git Commands", "Study UI/UX Basics",
+    "Implement LocalStorage", "Test Mobile View", "Research API Integration",
+    "Update CSS Variables", "Fix Navigation Menu", "Refactor Main.js",
+    "Submit Client Proposal", "Deploy Live Website"
+];
+
+// Render
+function renderTasks() {
+    taskList.innerHTML = "";
+    startingTasks.forEach((task, index) => {
+        const li = document.createElement('li');
+        const colorIndex = (index % 5) + 1;
+        li.className = `color-${colorIndex}`;
+        
+        li.innerHTML = `
+            <span><strong>${index + 1}.</strong> ${task}</span>
+            <button class="delete-btn" onclick="removeTask(${index})">Delete</button>
+        `;
+        taskList.appendChild(li);
     });
 }
 
-function updateDisplay() {
-    display.innerText = count;
-    // Gold Glow logic
-    if (count >= 10) {
-        display.classList.add('gold-glow');
-        title.classList.add('gold-glow');
-    } else {
-        display.classList.remove('gold-glow');
-        title.classList.remove('gold-glow');
-    }
-}
-
-// 2. ANIMATION: Increase size while tapping
-const incrementBtn = document.getElementById('increment-btn');
-
-const startGrow = () => {
-    display.style.transform = "scale(1.5)"; // Grow size
-    display.style.transition = "transform 0.1s ease-out";
+// Global Remove
+window.removeTask = (index) => {
+    startingTasks.splice(index, 1);
+    renderTasks();
 };
 
-const stopGrow = () => {
-    display.style.transform = "scale(1)"; // Back to normal
-};
-
-// Event Listeners for Counter & Animation
-incrementBtn.addEventListener('mousedown', () => {
-    count++;
-    updateDisplay();
-    startGrow();
-    saveToCloud();
-});
-
-incrementBtn.addEventListener('mouseup', stopGrow);
-incrementBtn.addEventListener('mouseleave', stopGrow);
-
-// Mobile Touch Support for scaling
-incrementBtn.addEventListener('touchstart', (e) => {
-    e.preventDefault();
-    count++;
-    updateDisplay();
-    startGrow();
-    saveToCloud();
-});
-incrementBtn.addEventListener('touchend', stopGrow);
-
-// Standard buttons
-document.getElementById('decrement-btn').addEventListener('click', () => {
-    if (count > 0) count--;
-    updateDisplay();
-    saveToCloud();
-});
-
-document.getElementById('reset-btn').addEventListener('click', () => {
-    count = 0;
-    updateDisplay();
-    saveToCloud();
-});
-
-function saveToCloud() {
-    if (window.database && window.dbSet) {
-        window.dbSet(window.dbRef(window.database, 'stats/counter'), count);
+// Event Listeners
+addButton.addEventListener('click', () => {
+    if (taskInput.value.trim() !== "") {
+        startingTasks.push(taskInput.value);
+        taskInput.value = "";
+        renderTasks();
     }
-}
+});
+
+taskInput.addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') addButton.click();
+});
+
+renderTasks();
