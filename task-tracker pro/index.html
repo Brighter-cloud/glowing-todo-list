@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProTask // Employee Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>ProTask</h2>
+            <nav>
+                <ul>
+                    <li class="active">Dashboard</li>
+                    <li>Analytics</li>
+                    <li>Settings</li>
+                </ul>
+            </nav>
+
+            <div class="pomodoro-box" style="margin-top: 30px; padding: 15px; background: #1a1a1a; border-radius: 10px; text-align: center; border: 1px solid #333;">
+                <h4 style="margin: 0 0 10px 0; font-size: 0.7rem; color: #888; text-transform: uppercase;">Focus Timer</h4>
+                <div id="timer-display" style="font-size: 1.8rem; font-weight: bold; color: #3498db; font-family: monospace;">25:00</div>
+                <div style="margin-top: 10px; display: flex; gap: 5px; justify-content: center;">
+                    <button id="start-timer" style="background: #27ae60; border: none; color: white; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 0.7rem;">Start</button>
+                    <button id="reset-timer" style="background: #c0392b; border: none; color: white; padding: 5px 10px; border-radius: 3px; cursor: pointer; font-size: 0.7rem;">Reset</button>
+                </div>
+            </div>
+
+            <div id="enable-notifications" style="margin-top: 20px; color: #f1c40f; cursor: pointer; font-size: 0.8rem;">
+                🔔 Enable Alerts
+            </div>
+        </aside>
+
+        <main class="content">
+            <div id="dashboard-view">
+                <header>
+                    <h1>Welcome Back, Developer</h1>
+                    <div class="stats-bar">
+                        <div class="stat-card">Pending: <span id="pending-count">0</span></div>
+                        <div class="stat-card">Done: <span id="done-count">0</span></div>
+                    </div>
+                </header>
+
+                <section class="search-box" style="margin-bottom: 15px;">
+                    <input type="text" id="search-input" placeholder="Search tasks..." style="width: 100%;">
+                </section>
+
+                <section class="task-form">
+                    <input type="text" id="task-input" placeholder="Enter new task...">
+                    <select id="priority-input">
+                        <option value="low">Low Priority</option>
+                        <option value="medium">Medium Priority</option>
+                        <option value="high">High Priority</option>
+                    </select>
+                    <input type="date" id="date-input">
+                    <button id="add-btn">Add Task</button>
+                </section>
+
+                <section class="task-list" id="task-container"></section>
+                <button id="clear-all-btn">Clear All Tasks</button>
+            </div>
+
+            <section id="analytics-page" style="display: none;">
+                <h2>Performance Overview</h2>
+                <div class="stat-card" style="border-left-color: #9b59b6; margin-bottom: 20px;">
+                    Efficiency Rate: <span id="efficiency-rate">0%</span>
+                </div>
+                <div class="progress-container" style="background: #333; height: 25px; border-radius: 15px; overflow: hidden;">
+                    <div id="progress-fill" style="background: #3498db; height: 100%; width: 0%; transition: 0.7s;"></div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
