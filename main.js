@@ -13,9 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const voiceMap = { '/': 'divided by', '*': 'times', '-': 'minus', '+': 'plus', '=': 'equals', 'C': 'clear', '.': 'point', '%': 'percent' };
             utterance.text = voiceMap[text] || text;
             window.speechSynthesis.speak(utterance);
-        } catch (e) {
-            console.log("Voice blocked by browser");
-        }
+        } catch (e) { console.log("Voice error"); }
     }
 
     buttons.forEach(button => {
