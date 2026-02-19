@@ -1,58 +1,60 @@
-// Theme Toggle
-const themeToggle = document.getElementById('theme-toggle');
-themeToggle.addEventListener('click', () => {
-    document.body.classList.toggle('dark-mode');
-});
+document.addEventListener('DOMContentLoaded', () => {
+    const display = document.getElementById('display');
+    const buttons = document.querySelectorAll('button');
+    const toggleSwitch = document.querySelector('#checkbox');
+    const themeText = document.getElementById('theme-text');
+    let currentInput = "";
 
-// Selectors
-const taskInput = document.getElementById('task-input');
-const addButton = document.getElementById('add-button');
-const taskList = document.getElementById('task-list');
-
-// Data
-let startingTasks = [
-    "Learn HTML Semantics", "Master CSS Flexbox", "Understand JS Variables",
-    "Connect Firebase Database", "Setup GitHub Pages", "Create Responsive Design",
-    "Debug JavaScript Console", "Optimize Image Sizes", "Write Clean Code",
-    "Build Portfolio Project", "Learn Git Commands", "Study UI/UX Basics",
-    "Implement LocalStorage", "Test Mobile View", "Research API Integration",
-    "Update CSS Variables", "Fix Navigation Menu", "Refactor Main.js",
-    "Submit Client Proposal", "Deploy Live Website"
-];
-
-// Render
-function renderTasks() {
-    taskList.innerHTML = "";
-    startingTasks.forEach((task, index) => {
-        const li = document.createElement('li');
-        const colorIndex = (index % 5) + 1;
-        li.className = `color-${colorIndex}`;
-        
-        li.innerHTML = `
-            <span><strong>${index + 1}.</strong> ${task}</span>
-            <button class="delete-btn" onclick="removeTask(${index})">Delete</button>
-        `;
-        taskList.appendChild(li);
-    });
-}
-
-// Global Remove
-window.removeTask = (index) => {
-    startingTasks.splice(index, 1);
-    renderTasks();
-};
-
-// Event Listeners
-addButton.addEventListener('click', () => {
-    if (taskInput.value.trim() !== "") {
-        startingTasks.push(taskInput.value);
-        taskInput.value = "";
-        renderTasks();
+    function speak(text) {
+        try {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 1.2;
+            const voiceMap = { '/': 'divided by', '*': 'times', '-': 'minus', '+': 'plus', '=': 'equals', 'C': 'clear', '.': 'point', '%': 'percent' };
+            utterance.text = voiceMap[text] || text;
+            window.speechSynthesis.speak(utterance);
+        } catch (e) {
+            console.log("Voice blocked by browser");
+        }
     }
-});
 
-taskInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') addButton.click();
-});
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            const value = button.innerText;
+            speak(value);
 
-renderTasks();
+            button.classList.add('zoom-active');
+            setTimeout(() => button.classList.remove('zoom-active'), 300);
+
+            if (value === 'C') {
+                currentInput = "";
+                display.value = "0";
+            } else if (value === '=') {
+                try {
+                    let result = eval(currentInput);
+                    display.value = Number.isInteger(result) ? result : result.toFixed(3);
+                    setTimeout(() => speak(display.value), 500);
+                    currentInput = display.value.toString();
+                } catch {
+                    display.value = "Error";
+                    speak("Error");
+                    currentInput = "";
+                }
+            } else {
+                if (display.value === "0" || display.value === "Error") currentInput = "";
+                currentInput += value;
+                display.value = currentInput;
+            }
+        });
+    });
+
+    toggleSwitch.addEventListener('change', (e) => {
+        if (e.target.checked) {
+            document.documentElement.setAttribute('data-theme', 'light');
+            themeText.innerText = "Light Mode";
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            themeText.innerText = "Dark Mode";
+        }
+    });
+});

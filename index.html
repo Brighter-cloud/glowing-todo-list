@@ -1,27 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>To-Do List</title>
+    <title>GlowCalc Ultra</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="dark-mode">
-    <button id="theme-toggle">🌓 Toggle Mode</button>
-    
-    <div class="container">
-        <div class="logo-container">
-            <h1 class="logo-header">Simple To-Do List</h1>
-        </div>
-        
-        <div class="water-flow-wrapper">
-            <div class="input-group">
-                <input type="text" id="task-input" placeholder="Add a new task...">
-                <button id="add-button">Add</button>
-            </div>
-        </div>
+<body>
 
-        <ul id="task-list"></ul>
+    <div class="theme-switch-wrapper">
+        <span id="theme-text">Dark Mode</span>
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox" />
+            <div class="slider round"></div>
+        </label>
+    </div>
+
+    <div class="calculator">
+        <input type="text" id="display" disabled placeholder="0">
+        <div class="buttons">
+            <button class="btn-red">C</button>
+            <button class="btn-blue">/</button>
+            <button class="btn-green">*</button>
+            <button class="btn-pink">-</button>
+            
+            <button class="btn-yellow">7</button>
+            <button class="btn-gray">8</button>
+            <button class="btn-blue">9</button>
+            <button class="btn-red">+</button>
+            
+            <button class="btn-green">4</button>
+            <button class="btn-pink">5</button>
+            <button class="btn-yellow">6</button>
+            <button class="btn-gray">%</button>
+            
+            <button class="btn-blue">1</button>
+            <button class="btn-red">2</button>
+            <button class="btn-green">3</button>
+            <button class="btn-pink">.</button>
+            
+            <button class="btn-yellow">0</button>
+            <button class="btn-equal">=</button>
+        </div>
     </div>
 
     <script src="main.js"></script>
