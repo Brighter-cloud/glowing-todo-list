@@ -1,0 +1,81 @@
+body {
+    background-color: #ffeb3b; /* Yellow Background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    font-family: sans-serif;
+}
+
+.main-building {
+    position: relative;
+    padding: 20px;
+    background: #111; /* The "Building" */
+    border-radius: 30px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+}
+
+/* CIRCULAR ORBIT ANIMATION */
+.orbit-circle {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border-radius: 50%;
+    box-shadow: 0 0 20px #fff, 0 0 40px #00d4ff;
+    z-index: 5;
+    /* This makes it travel around the edge */
+    offset-path: border-box;
+    animation: orbit-move 5s linear infinite;
+}
+
+@keyframes orbit-move {
+    from { offset-distance: 0%; }
+    to { offset-distance: 100%; }
+}
+
+.container {
+    background: #1a1a1a;
+    padding: 20px;
+    border-radius: 20px;
+    color: white;
+}
+
+.logo-header {
+    text-align: center;
+    background: linear-gradient(90deg, #ff007b, #00d4ff, #ccff00);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1.8rem;
+}
+
+.input-group { display: flex; gap: 10px; margin-bottom: 20px; }
+
+#add-button {
+    background: linear-gradient(45deg, #ff007b, #00d4ff);
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+li {
+    list-style: none;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    background: #222;
+    border-left: 5px solid white;
+}
+
+/* Multicolors for the 50 items */
+li:nth-child(4n+1) { border-color: #ff007b; color: #ff007b; }
+li:nth-child(4n+2) { border-color: #00d4ff; color: #00d4ff; }
+li:nth-child(4n+3) { border-color: #ccff00; color: #ccff00; }
+li:nth-child(4n+4) { border-color: #e040fb; color: #e040fb; }
